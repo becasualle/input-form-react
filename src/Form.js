@@ -1,11 +1,13 @@
-const Form = ({ handleUsers }) => {
+const Form = ({ handleUsers, handlePopup }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
         const user = { name: e.target[0].value, age: e.target[1].value, id: Math.random() };
-        handleUsers(user);
-        // e.target[0].value = '';
-        // e.target[1].value = '';
+        if (user.name && user.age > 0) {
+            handleUsers(user);
+        } else if (user.age < 0) {
+            handlePopup(true, false)
+        } else { handlePopup(false, true) };
         e.target.reset();
         return user;
     }

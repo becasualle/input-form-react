@@ -1,6 +1,7 @@
+import { useState } from "react";
 import Form from "./Form";
 import Users from "./Users.js";
-import { useState } from "react";
+import Popup from "./Popup";
 
 
 function App() {
@@ -10,6 +11,8 @@ function App() {
     { name: "Alex", age: 31, id: 3 }
   ]);
 
+  const [showPopup, setshowPopup] = useState([false, false]);
+
   const handleUsers = (user) => {
     setUsers(prevUsers => {
       const updatedUsers = [...prevUsers];
@@ -18,10 +21,15 @@ function App() {
     });
   }
 
+  const handlePopup = (negativeNumber, emptyInputs) => {
+    setshowPopup([negativeNumber, emptyInputs]);
+  }
+
   return (
     <div className="App">
-      <Form handleUsers={handleUsers} />
+      <Form handleUsers={handleUsers} handlePopup={handlePopup} />
       <Users users={users} />
+      <Popup showPopup={showPopup} handlePopup={handlePopup} />
     </div>
   );
 }
