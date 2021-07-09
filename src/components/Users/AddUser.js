@@ -15,7 +15,15 @@ const AddUser = props => {
     // when user click submit keep current username and age
     const addUserHandler = event => {
         event.preventDefault();
-        console.log(enteredUsername, enteredAge);
+        if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+            return;
+        }
+        if (+enteredAge < 1) {
+            return;
+        }
+        props.onAddUser(enteredUsername, enteredAge);
+        setEnteredUsername('');
+        setEnteredAge('');
     }
 
     // on every letter that user input update enteredUsername and enteredAge
@@ -33,9 +41,9 @@ const AddUser = props => {
             <form onSubmit={addUserHandler}>
                 <label htmlFor="username">Username</label>
                 {/* Add onChange to call function on every letter that user types in */}
-                <input id="username" type="text" onChange={usernameChangeHandler} />
+                <input value={enteredUsername} id="username" type="text" onChange={usernameChangeHandler} />
                 <label htmlFor="age">Age</label>
-                <input type="number" id="age" onChange={ageChangeHandler} />
+                <input value={enteredAge} type="number" id="age" onChange={ageChangeHandler} />
                 <Button type="submit" onClick={addUserHandler}>Add user</Button>
             </form>
         </Card>
