@@ -5,6 +5,7 @@ import Card from '../UI/Card';
 import styles from './AddUser.module.css';
 
 import Button from '../UI/Button';
+import ErrorModal from './ErrorModal';
 
 const AddUser = props => {
 
@@ -36,17 +37,20 @@ const AddUser = props => {
     };
 
     return (
+        <div>
+            <ErrorModal title="An error occured!" message="Something went wrong" />
+            <Card className={styles.input}>
+                <form onSubmit={addUserHandler}>
+                    <label htmlFor="username">Username</label>
+                    {/* Add onChange to call function on every letter that user types in */}
+                    <input value={enteredUsername} id="username" type="text" onChange={usernameChangeHandler} />
+                    <label htmlFor="age">Age</label>
+                    <input value={enteredAge} type="number" id="age" onChange={ageChangeHandler} />
+                    <Button type="submit" onClick={addUserHandler}>Add user</Button>
+                </form>
+            </Card>
+        </div>
         // When set classname in component have to call it in this component using props
-        <Card className={styles.input}>
-            <form onSubmit={addUserHandler}>
-                <label htmlFor="username">Username</label>
-                {/* Add onChange to call function on every letter that user types in */}
-                <input value={enteredUsername} id="username" type="text" onChange={usernameChangeHandler} />
-                <label htmlFor="age">Age</label>
-                <input value={enteredAge} type="number" id="age" onChange={ageChangeHandler} />
-                <Button type="submit" onClick={addUserHandler}>Add user</Button>
-            </form>
-        </Card>
     );
 }
 
