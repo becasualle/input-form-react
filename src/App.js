@@ -1,35 +1,19 @@
-import { useState } from "react";
-import Form from "./Form";
-import Users from "./Users.js";
-import Popup from "./Popup";
-
+import React, { useState } from 'react';
+import AddUser from './components/Users/AddUser';
+import UsersList from './components/Users/UsersList';
 
 function App() {
-  const [users, setUsers] = useState([
-    { name: "Mark", age: 30, id: 1 },
-    { name: "Sveta", age: 28, id: 2 },
-    { name: "Alex", age: 31, id: 3 }
-  ]);
 
-  const [showPopup, setshowPopup] = useState([false, false]);
+  const [users, setUsers] = useState([]);
 
-  const handleUsers = (user) => {
-    setUsers(prevUsers => {
-      const updatedUsers = [...prevUsers];
-      updatedUsers.unshift(user);
-      return updatedUsers;
-    });
-  }
-
-  const handlePopup = (negativeNumber, emptyInputs) => {
-    setshowPopup([negativeNumber, emptyInputs]);
+  const addUserHandler = (userName, userAge) => {
+    setUsers(prevUsers => [...prevUsers, { name: userName, age: userAge, id: Math.random().toString() }])
   }
 
   return (
     <div className="App">
-      <Form handleUsers={handleUsers} handlePopup={handlePopup} />
-      <Users users={users} />
-      <Popup showPopup={showPopup} handlePopup={handlePopup} />
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={users} />
     </div>
   );
 }
